@@ -13,7 +13,7 @@ const getControlCrecimiento = async (req, res) => {
 // Crear nuevo ControlCrecimiento
 const createControlCrecimiento = async (req, res) => {
     try {
-        const nuevo = new Niño(req.body);
+        const nuevo = new ControlCrecimiento(req.body);
         await nuevo.save();
         res.status(201).json(nuevo);
     } catch (err) {

@@ -13,7 +13,7 @@ const getRecomendacion = async (req, res) => {
 // Crear nuevo recomendaciones
 const createRecomendacion = async (req, res) => {
     try {
-        const nuevo = new Niño(req.body);
+        const nuevo = new Recomendacion(req.body);
         await nuevo.save();
         res.status(201).json(nuevo);
     } catch (err) {
