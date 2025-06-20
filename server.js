@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 // Rutas
-app.use("/api/niños", require("./routes/nino.routes.js"));
+app.use("/api/ninos", require("./routes/nino.routes.js"));
 app.use("/api/usuarios", require("./routes/usuario.routes.js"));
 app.use("/api/recomendaciones", require("./routes/recomendaciones.routes.js"));
 app.use("/api/controlcrecimiento", require("./routes/controlcrecimiento.routes.js"));
