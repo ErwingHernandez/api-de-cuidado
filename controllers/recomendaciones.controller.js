@@ -17,7 +17,7 @@ const createRecomendacion = async (req, res) => {
         await nuevo.save();
         res.status(201).json(nuevo);
     } catch (err) {
-         console.error("❌ Error al crear recomendación:", err); 
+        console.error("❌ Error al crear recomendación:", err);
         res.status(400).json({ error: "Error al crear registro de software" });
     }
 };
