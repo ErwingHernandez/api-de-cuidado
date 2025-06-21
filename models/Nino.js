@@ -9,4 +9,4 @@ const ninoSchema = new Schema({
     usuario_id: { type: mongoose.Schema.Types.ObjectId, ref: "Usuarios", required: true }
 });
 
-module.exports = mongoose.model("Niño", ninoSchema);
+module.exports = mongoose.model("Nino", ninoSchema);

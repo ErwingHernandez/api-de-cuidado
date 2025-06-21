@@ -10,6 +10,15 @@ const getControlCrecimiento = async (req, res) => {
     }
 };
 
+const getControlPorNino = async (req, res) => {
+    try {
+        const controles = await ControlCrecimiento.find({ child_id: req.params.id });
+        res.json(controles);
+    } catch (err) {
+        res.status(500).json({ error: "Error al obtener controles del niño" });
+    }
+};
+
 // Crear nuevo ControlCrecimiento
 const createControlCrecimiento = async (req, res) => {
     try {
@@ -45,5 +54,6 @@ module.exports = {
     getControlCrecimiento,
     createControlCrecimiento,
     updateControlCrecimiento,
-    deleteControlCrecimiento
+    deleteControlCrecimiento,
+    getControlPorNino
 };

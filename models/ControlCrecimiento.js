@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const controlcrecimientoSchema = new Schema({
-    child_id: { type: mongoose.Schema.Types.ObjectId, ref: "Niño", required: true },
+    child_id: { type: mongoose.Schema.Types.ObjectId, ref: "Nino", required: true },
     fecha: { type: Date, required: true },
     peso_kg: { type: Number, required: true },
     talla_cm: { type: Number, required: true },
