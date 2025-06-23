@@ -5,7 +5,7 @@ const usuariosSchema = new Schema({
     nombre: { type: String, required: true },
     correo: { type: String, required: true, unique: true },
     contraseña: { type: String, required: true },
-    rol: { type: String, enum: ["Padre", "Medico"], required: true },
+    rol: { type: String, enum: ["Padre", "Madre"], required: true },
     telefono: { type: String },
     direccion: { type: String }
 });
