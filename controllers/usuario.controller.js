@@ -10,6 +10,41 @@ const getUsuario = async (req, res) => {
     }
 };
 
+const postLoginUsuario = async (req, res) => {
+    const { correo, contraseña } = req.body; // Obtener correo y contraseña del cuerpo de la solicitud
+
+    try {
+        // 1. Buscar el usuario por correo electrónico
+        const usuario = await Usuario.findOne({ correo });
+
+        // Si el usuario no existe
+        if (!usuario) {
+            // Mensaje genérico por seguridad básica (no decimos si el correo existe o no)
+            return res.status(401).json({ error: "Credenciales inválidas." });
+        }
+
+        // 2. Comparar la contraseña proporcionada directamente con la contraseña almacenada en la BD
+        // (¡Advertencia: esto asume que la contraseña en la BD está en texto plano!)
+        if (contraseña !== usuario.contraseña) {
+            return res.status(401).json({ error: "Credenciales inválidas." });
+        }
+
+        // 3. Si las credenciales son correctas, devolver la información del usuario (sin la contraseña)
+        // Usamos '_doc' para obtener un objeto plano del documento de Mongoose
+        const usuarioLogueado = { ...usuario._doc };
+        delete usuarioLogueado.contraseña; // Eliminamos la propiedad de contraseña antes de enviarla al cliente
+
+        res.status(200).json({
+            mensaje: "Inicio de sesión exitoso",
+            usuario: usuarioLogueado // Envía el objeto de usuario sin la contraseña
+        });
+
+    } catch (err) {
+        console.error("Error del servidor al iniciar sesión:", err); // Para depuración en el servidor
+        res.status(500).json({ error: "Error del servidor al iniciar sesión." });
+    }
+};
+
 // Crear nuevo usuario
 const createUsuario = async (req, res) => {
     try {
@@ -45,5 +80,6 @@ module.exports = {
     getUsuario,
     createUsuario,
     updateUsuario,
-    deleteUsuario
+    deleteUsuario,
+    postLoginUsuario
 };
