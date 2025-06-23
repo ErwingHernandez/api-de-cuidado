@@ -48,11 +48,31 @@ const postLoginUsuario = async (req, res) => {
 // Crear nuevo usuario
 const createUsuario = async (req, res) => {
     try {
+        const { correo, /* otras propiedades del usuario */ } = req.body;
+
+        // Verificar si el correo ya existe 
+        const existingUser = await Usuario.findOne({ correo });
+
+        if (existingUser) {
+            // Si el correo ya existe, respondemos con 409 Conflict
+            return res.status(409).json({ error: "El correo electrónico ya está registrado." });
+        }
+        // --------------------------------------------------------------------------------
+
         const nuevo = new Usuario(req.body);
         await nuevo.save();
         res.status(201).json(nuevo);
     } catch (err) {
-        res.status(400).json({ error: "Error al registrar usuario" });
+        console.error("Error al registrar usuario:", err);
+
+
+        if (err.name === 'ValidationError') {
+            const messages = Object.values(err.errors).map(val => val.message);
+            return res.status(400).json({ error: messages.join(', ') });
+        }
+
+        // Para cualquier otro error inesperado del servidor
+        res.status(500).json({ error: "Error interno del servidor al registrar usuario." });
     }
 };
 
