@@ -10,6 +10,17 @@ const getUsuario = async (req, res) => {
     }
 };
 
+const getIdUsuario = async (req, res) => {
+    try{
+        const usuario = await Usuario.findById(req.params.id)
+        res.json(usuario);
+
+    }catch(err){
+        res.status(500).json({ error: "Error al obtener los datos del usuario" });
+    }
+
+}
+
 const postLoginUsuario = async (req, res) => {
     const { correo, contraseña } = req.body; // Obtener correo y contraseña del cuerpo de la solicitud
 
@@ -101,5 +112,6 @@ module.exports = {
     createUsuario,
     updateUsuario,
     deleteUsuario,
-    postLoginUsuario
+    postLoginUsuario,
+    getIdUsuario
 };
